@@ -193,6 +193,10 @@ export default function Timeline({
                           loading="lazy"
                           decoding="async"
                           style={photo.position ? { objectPosition: photo.position } : undefined}
+                          onError={(event) => {
+                            // Photo pas encore déposée : on affiche un cadre « Photo à venir ».
+                            event.currentTarget.closest("figure")?.classList.add("is-missing");
+                          }}
                         />
                       </figure>
                     ))}
@@ -219,7 +223,10 @@ export default function Timeline({
           <svg className="timeline__arrow" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M2 12h19M14 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="1.6" />
           </svg>
-          <p className="timeline__next">À suivre…</p>
+          <div className="timeline__next">
+            <p>À suivre…</p>
+            <p className="timeline__next-goals">des 10 km, des semis, des marathons</p>
+          </div>
         </div>
       </div>
 

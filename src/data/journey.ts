@@ -144,6 +144,20 @@ export const journey: JourneyItem[] = [
       "https://www.runinlyon.com/fr/actus/ambiance-sportive-et-festive-pour-la-13e-edition/20",
   },
   {
+    id: "nice-10k-2024",
+    discipline: "athle",
+    photos: [
+      // Photo à déposer : public/images/parcours/nice-10km.jpg (cadre « Photo à venir » tant qu'elle manque).
+      { src: "images/parcours/nice-10km.jpg", alt: "Grâce Charpy en course sur le 10 km de Nice", position: "50% 35%" },
+    ],
+    label: "2024",
+    title: "Sous les 35 minutes",
+    description: "10 km de Nice bouclés en 34 min 52 s, sa meilleure performance sur la distance.",
+    status: "verified",
+    sourceUrl: officialProfiles.ffa,
+    verificationNote: "Record personnel sur 10 km route daté du 7 janvier 2024 sur la fiche FFA.",
+  },
+  {
     id: "open-france-2025",
     discipline: "athle",
     photos: [
@@ -158,6 +172,20 @@ export const journey: JourneyItem[] = [
       "https://worldathletics.org/competition/calendar-results/results/7226083",
     verificationNote:
       "Recoupement : la FFA confirme l’athlète, l’épreuve, la performance, la date et le lieu ; World Athletics confirme que l’événement des 26–27 juillet 2025 à Thonon-les-Bains est l’Open de France.",
+  },
+  {
+    id: "feurs-semi-2026",
+    discipline: "athle",
+    photos: [
+      // Photo à déposer : public/images/parcours/feurs-semi.jpg (cadre « Photo à venir » tant qu'elle manque).
+      { src: "images/parcours/feurs-semi.jpg", alt: "Grâce Charpy en course sur le semi-marathon de Feurs", position: "50% 35%" },
+    ],
+    label: "2026",
+    title: "Cap sur le semi",
+    description: "Semi-marathon de Feurs en 1 h 17 min 38 s, troisième au classement féminin.",
+    status: "verified",
+    sourceUrl: officialProfiles.ffa,
+    verificationNote: "Résultat du 22 mars 2026 sur la fiche FFA (3e féminine).",
   },
   {
     id: "open-france-2026",
