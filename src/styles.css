@@ -253,7 +253,9 @@ img { display: block; max-width: 100%; }
 .partners__stat strong { color: var(--paper); font: 400 clamp(2.6rem, 5.5vw, 5rem)/0.9 Georgia, serif; letter-spacing: -0.05em; }
 .partners__stat:first-child strong { color: var(--signal); }
 .partners__stat span { color: #9f988e; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; }
-.partners__stat-source { color: #c8c0b5; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; }
+.partners__stat-source { display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem; color: #c8c0b5; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; }
+.partners__ig { width: 2.4rem; height: 2.4rem; padding: 0.5rem; border: 1px solid currentColor; border-radius: 50%; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; transition: color 180ms ease; }
+.partners__stats:hover .partners__ig, .partners__stats:focus-visible .partners__ig { color: var(--signal); }
 
 .partners__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: clamp(2.5rem, 6svh, 4rem) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .partners__grid li { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -361,7 +363,7 @@ img { display: block; max-width: 100%; }
   .timeline__next-goals { position: static; margin-top: 0.6rem !important; white-space: normal; }
   .partners__head { grid-template-columns: 1fr; }
   .partners__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.5rem; }
-  .partners__stat-source { grid-column: 1 / -1; }
+  .partners__stat-source { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: flex-start; }
   .partners__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .partners__grid a, .partners__card { min-height: 8.5rem; padding: 0.8rem; }
   .partners__logo img { max-width: 88%; max-height: 1.8rem; }

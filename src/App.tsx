@@ -168,7 +168,14 @@ export default function App() {
               <span>{stat.label}</span>
             </span>
           ))}
-          <span className="partners__stat-source">@grace_charpy <span aria-hidden="true">↗</span></span>
+          <span className="partners__stat-source">
+            <svg className="partners__ig" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4.2" />
+              <circle cx="17.4" cy="6.6" r="0.6" fill="currentColor" />
+            </svg>
+            <span>@grace_charpy <span aria-hidden="true">↗</span></span>
+          </span>
         </a>
 
         <ul className="partners__grid" aria-label="Marques et événements partenaires">

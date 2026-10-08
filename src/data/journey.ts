@@ -147,8 +147,7 @@ export const journey: JourneyItem[] = [
     id: "nice-10k-2024",
     discipline: "athle",
     photos: [
-      // Photo à déposer : public/images/parcours/nice-10km.jpg (cadre « Photo à venir » tant qu'elle manque).
-      { src: "images/parcours/nice-10km.jpg", alt: "Grâce Charpy en course sur le 10 km de Nice", position: "50% 35%" },
+      { src: "images/parcours/nice-10km.jpg", alt: "Grâce Charpy en course sur le 10 km de Nice", position: "40% 25%" },
     ],
     label: "2024",
     title: "Sous les 35 minutes",
@@ -177,8 +176,7 @@ export const journey: JourneyItem[] = [
     id: "feurs-semi-2026",
     discipline: "athle",
     photos: [
-      // Photo à déposer : public/images/parcours/feurs-semi.jpg (cadre « Photo à venir » tant qu'elle manque).
-      { src: "images/parcours/feurs-semi.jpg", alt: "Grâce Charpy en course sur le semi-marathon de Feurs", position: "50% 35%" },
+      { src: "images/parcours/feurs-semi.jpg", alt: "Grâce Charpy, médaille du semi-marathon de Feurs en main", position: "50% 32%" },
     ],
     label: "2026",
     title: "Cap sur le semi",
