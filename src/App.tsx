@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import Timeline from "@/components/ui/timeline";
 import { useMistReveal } from "@/components/ui/use-mist-reveal";
 import { journey } from "@/data/journey";
@@ -14,6 +14,19 @@ export default function App() {
   const portraitRef = useRef<HTMLElement>(null);
   const mistRef = useRef<HTMLCanvasElement>(null);
   const mistHandlers = useMistReveal(portraitRef, mistRef, { imageSrc: gymImage, mode: "couloirs" });
+
+  // Sur mobile : toucher la photo la retourne pour dévoiler la photo de gym.
+  const [flipped, setFlipped] = useState(false);
+  const isMobile = () => window.matchMedia("(max-width: 767px)").matches;
+  const togglePortrait = () => {
+    if (isMobile()) setFlipped((value) => !value);
+  };
+  const onPortraitKey = (event: KeyboardEvent<HTMLElement>) => {
+    if ((event.key === "Enter" || event.key === " ") && isMobile()) {
+      event.preventDefault();
+      setFlipped((value) => !value);
+    }
+  };
 
   return (
     <main>
@@ -59,17 +72,19 @@ export default function App() {
             <a
               className="contact-cta"
               href="mailto:gracecharpypro@gmail.com"
-              aria-label="Envoyer un e-mail à Grâce Charpy"
+              aria-label="Contacter Grâce Charpy par e-mail"
             >
-              <span>Écrire à Grâce</span>
+              <span>Me contacter</span>
               <span aria-hidden="true">↗</span>
             </a>
           </div>
 
           <figure
             ref={portraitRef}
-            className="portrait-pair"
+            className={flipped ? "portrait-pair is-flipped" : "portrait-pair"}
             tabIndex={0}
+            onClick={togglePortrait}
+            onKeyDown={onPortraitKey}
             aria-label="Portrait interactif de Grâce Charpy, entre course et gymnastique"
             aria-describedby="portrait-instruction"
             {...mistHandlers}
@@ -87,6 +102,9 @@ export default function App() {
             <figcaption className="portrait-pair__caption">
               <span id="portrait-instruction" className="portrait-pair__desktop-note">
                 Déplacez le pointeur pour révéler
+              </span>
+              <span className="portrait-pair__mobile-note">
+                <span aria-hidden="true">↻</span> {flipped ? "Touchez pour revenir" : "Touchez la photo pour la retourner"}
               </span>
               <span>Course / Gymnastique</span>
             </figcaption>

@@ -37,5 +37,4 @@ export const partners: Partner[] = [
 export const audienceStats = [
   { id: "followers", value: "14,5k", label: "Abonnés Instagram" },
   { id: "views", value: "70k", label: "Vues en 1 mois" },
-  { id: "brands", value: String(partners.length), label: "Marques & événements partenaires" },
 ];
