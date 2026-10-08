@@ -1,9 +1,11 @@
 import { useRef, useState, type KeyboardEvent } from "react";
+import LegalFooter from "@/components/ui/legal-footer";
 import Timeline from "@/components/ui/timeline";
 import { useMistReveal } from "@/components/ui/use-mist-reveal";
 import { journey } from "@/data/journey";
 import { heroProofs } from "@/data/sport-profile";
-import { audienceStats, partners } from "@/data/partners";
+import { audienceStats, categoryLabels, partners } from "@/data/partners";
+import { LangSwitch, ui, useLang } from "@/i18n";
 
 // Rayons des couloirs de la piste dessinée en fond du haut de page.
 const TRACK_LANES = [330, 390, 450, 510, 570, 630, 690, 750];
@@ -11,6 +13,7 @@ const TRACK_LANES = [330, 390, 450, 510, 570, 630, 690, 750];
 const gymImage = `${import.meta.env.BASE_URL}images/grace-gym.jpg`;
 
 export default function App() {
+  const { t } = useLang();
   const portraitRef = useRef<HTMLElement>(null);
   const mistRef = useRef<HTMLCanvasElement>(null);
   const mistHandlers = useMistReveal(portraitRef, mistRef, { imageSrc: gymImage, mode: "couloirs" });
@@ -50,31 +53,29 @@ export default function App() {
           </g>
         </svg>
 
-        <nav className="hero__nav" aria-label="Navigation principale">
+        <nav className="hero__nav" aria-label={t(ui.navLabel)}>
+          <LangSwitch />
           <div className="hero__nav-links">
-            <a href="#parcours">Parcours</a>
-            <a href="#partenariats">Partenariats</a>
-            <a href="#contact">Contact</a>
+            <a href="#parcours">{t(ui.navJourney)}</a>
+            <a href="#partenariats">{t(ui.navPartners)}</a>
+            <a href="#contact">{t(ui.navContact)}</a>
           </div>
         </nav>
 
         <div id="accueil" className="hero__layout">
           <div className="hero__copy">
-            <p className="eyebrow">Ancienne gymnaste internationale · Athlète N2</p>
+            <p className="eyebrow">{t(ui.heroEyebrow)}</p>
             <h1 id="hero-title">
               Grâce
               <span>Charpy</span>
             </h1>
-            <p className="hero__statement">
-              De l’équipe de France de gymnastique aux pistes d’athlétisme. Une trajectoire
-              construite avec la même précision, le même engagement et un nouvel élan.
-            </p>
+            <p className="hero__statement">{t(ui.heroStatement)}</p>
             <a
               className="contact-cta"
               href="mailto:gracecharpypro@gmail.com"
-              aria-label="Contacter Grâce Charpy par e-mail"
+              aria-label={t(ui.ctaContactLabel)}
             >
-              <span>Me contacter</span>
+              <span>{t(ui.ctaContact)}</span>
               <span aria-hidden="true">↗</span>
             </a>
           </div>
@@ -85,14 +86,14 @@ export default function App() {
             tabIndex={0}
             onClick={togglePortrait}
             onKeyDown={onPortraitKey}
-            aria-label="Portrait interactif de Grâce Charpy, entre course et gymnastique"
+            aria-label={t(ui.portraitLabel)}
             aria-describedby="portrait-instruction"
             {...mistHandlers}
           >
             <div className="portrait-pair__runner">
               <img
                 src={`${import.meta.env.BASE_URL}images/grace-blocks-league.jpg`}
-                alt="Grâce Charpy en tenue de course noire lors d’un événement Blocks League"
+                alt={t(ui.portraitAlt)}
               />
             </div>
             <div className="portrait-pair__gym" aria-hidden="true">
@@ -101,24 +102,24 @@ export default function App() {
             <canvas ref={mistRef} className="portrait-pair__mist" aria-hidden="true" />
             <figcaption className="portrait-pair__caption">
               <span id="portrait-instruction" className="portrait-pair__desktop-note">
-                Déplacez le pointeur pour révéler
+                {t(ui.portraitDesktop)}
               </span>
               <span className="portrait-pair__mobile-note">
-                <span aria-hidden="true">↻</span> {flipped ? "Touchez pour revenir" : "Touchez la photo pour la retourner"}
+                <span aria-hidden="true">↻</span> {flipped ? t(ui.portraitBack) : t(ui.portraitFlip)}
               </span>
-              <span>Course / Gymnastique</span>
+              <span>{t(ui.portraitCaption)}</span>
             </figcaption>
           </figure>
 
           <aside className="hero__performances" aria-labelledby="performances-title">
-            <p id="performances-title" className="eyebrow">Performances</p>
-            <ul className="hero__proofs" aria-label="Repères sportifs vérifiés">
+            <p id="performances-title" className="eyebrow">{t(ui.performances)}</p>
+            <ul className="hero__proofs" aria-label={t(ui.performancesLabel)}>
               {heroProofs.map((proof) => (
                 <li key={proof.id}>
                   <a href={proof.sourceUrl} target="_blank" rel="noreferrer">
-                    <span>{proof.label}</span>
-                    <strong>{proof.value}</strong>
-                    <small>{proof.detail}</small>
+                    <span>{t(proof.label)}</span>
+                    <strong>{t(proof.value)}</strong>
+                    <small>{t(proof.detail)}</small>
                   </a>
                 </li>
               ))}
@@ -126,10 +127,10 @@ export default function App() {
           </aside>
         </div>
 
-        <p className="hero__index" aria-hidden="true">01 — Mouvement</p>
+        <p className="hero__index" aria-hidden="true">{t(ui.heroIndex)}</p>
 
-        <a className="scroll-cue" href="#parcours" aria-label="Descendre vers le parcours">
-          <span className="scroll-cue__label">Défiler</span>
+        <a className="scroll-cue" href="#parcours" aria-label={t(ui.scrollLabel)}>
+          <span className="scroll-cue__label">{t(ui.scroll)}</span>
           <svg className="scroll-cue__arrow" viewBox="0 0 16 32" aria-hidden="true">
             <path d="M8 1v29M2 24l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="1.2" />
           </svg>
@@ -138,21 +139,18 @@ export default function App() {
 
       <Timeline
         id="parcours"
-        title="Du praticable à la ligne de départ."
-        periodLabel="2009 — aujourd’hui"
+        title={t(ui.timelineTitle)}
+        periodLabel={t(ui.timelinePeriod)}
         items={journey}
       />
 
       <section id="partenariats" className="partners" aria-labelledby="partners-title">
         <div className="partners__head">
           <div>
-            <p className="eyebrow">Partenariats · Visibilité</p>
-            <h2 id="partners-title">Ils ont couru avec Grâce.</h2>
+            <p className="eyebrow">{t(ui.partnersEyebrow)}</p>
+            <h2 id="partners-title">{t(ui.partnersTitle)}</h2>
           </div>
-          <p className="partners__intro">
-            Des marques de sport, de nutrition et des courses de la Loire lui ont déjà confié
-            leur image, sur la piste comme sur Instagram.
-          </p>
+          <p className="partners__intro">{t(ui.partnersIntro)}</p>
         </div>
 
         <a
@@ -160,12 +158,12 @@ export default function App() {
           href="https://www.instagram.com/grace_charpy/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Audience Instagram de Grâce Charpy (ouvre Instagram dans un nouvel onglet)"
+          aria-label={t(ui.statsLabel)}
         >
           {audienceStats.map((stat) => (
             <span key={stat.id} className="partners__stat">
-              <strong>{stat.value}</strong>
-              <span>{stat.label}</span>
+              <strong>{t(stat.value)}</strong>
+              <span>{t(stat.label)}</span>
             </span>
           ))}
           <span className="partners__stat-source">
@@ -178,7 +176,7 @@ export default function App() {
           </span>
         </a>
 
-        <ul className="partners__grid" aria-label="Marques et événements partenaires">
+        <ul className="partners__grid" aria-label={t(ui.partnersGridLabel)}>
           {partners.map((partner) => {
             const content = (
               <>
@@ -195,7 +193,7 @@ export default function App() {
                   )}
                 </span>
                 <span className="partners__meta">
-                  <span>{partner.category}</span>
+                  <span>{t(categoryLabels[partner.category])}</span>
                   {partner.url && <span aria-hidden="true">↗</span>}
                 </span>
               </>
@@ -207,7 +205,7 @@ export default function App() {
                     href={partner.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`${partner.name} — ouvrir le site (nouvel onglet)`}
+                    aria-label={`${partner.name} — ${t(ui.openSite)}`}
                   >
                     {content}
                   </a>
@@ -221,15 +219,15 @@ export default function App() {
       </section>
 
       <section id="contact" className="contact" aria-labelledby="contact-title">
-        <p className="eyebrow">Collaborations · Projets · Partenariats</p>
-        <h2 id="contact-title">Me contacter pour vos projets.</h2>
-        <div className="contact__links" aria-label="Coordonnées de Grâce Charpy">
+        <p className="eyebrow">{t(ui.contactEyebrow)}</p>
+        <h2 id="contact-title">{t(ui.contactTitle)}</h2>
+        <div className="contact__links" aria-label={t(ui.contactLinksLabel)}>
           <a href="mailto:gracecharpypro@gmail.com">
             <svg className="contact__icon" viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="5" width="18" height="14" rx="1.5" />
               <path d="m3.5 6 8.5 7 8.5-7" />
             </svg>
-            <span>E-mail</span>
+            <span>{t(ui.email)}</span>
             <strong>gracecharpypro@gmail.com</strong>
             <span aria-hidden="true">↗</span>
           </a>
@@ -249,9 +247,10 @@ export default function App() {
           </a>
         </div>
         <a className="contact__back" href="#accueil">
-          Retour en haut <span aria-hidden="true">↑</span>
+          {t(ui.backToTop)} <span aria-hidden="true">↑</span>
         </a>
       </section>
+      <LegalFooter />
     </main>
   );
 }

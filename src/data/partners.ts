@@ -1,8 +1,18 @@
+import type { Localized } from "@/i18n";
+
 // Marques et événements qui ont déjà travaillé avec Grâce.
 // Pour ajouter un partenaire : déposer son logo dans public/images/partenaires/
 // puis ajouter une ligne ci-dessous.
 
 export type PartnerCategory = "Équipement" | "Nutrition" | "Événement" | "Partenaire";
+
+/** Traduction des catégories affichées sous chaque logo. */
+export const categoryLabels: Record<PartnerCategory, Localized> = {
+  Équipement: { fr: "Équipement", en: "Equipment", de: "Ausrüstung" },
+  Nutrition: { fr: "Nutrition", en: "Nutrition", de: "Ernährung" },
+  Événement: { fr: "Événement", en: "Event", de: "Event" },
+  Partenaire: { fr: "Partenaire", en: "Partner", de: "Partner" },
+};
 
 export type Partner = {
   id: string;
@@ -26,7 +36,7 @@ export const partners: Partner[] = [
   { id: "terre-de-gymnaste", name: "Terre de Gymnaste", category: "Équipement", url: "https://www.terredegymnaste.fr/", logo: "images/partenaires/terre-de-gymnaste.webp", shape: "wide" },
   { id: "prozis", name: "Prozis", category: "Nutrition", url: "https://www.prozis.com/fr/fr", logo: "images/partenaires/prozis.webp", shape: "wide" },
   { id: "bonjour", name: "Bonjour", category: "Nutrition", url: "https://bonjourdrink.co/", logo: "images/partenaires/bonjour.webp", shape: "wide" },
-  { id: "reload", name: "Reload", category: "Partenaire", url: null, logo: null },
+  { id: "reload", name: "Reload", category: "Partenaire", url: "https://reloadstore.sumupstore.com/", logo: "images/partenaires/reload.webp", shape: "wide" },
   { id: "blocks-league", name: "Blocks League", category: "Événement", url: "https://blocks-league.com/", logo: "images/partenaires/blocks-league.webp", shape: "wide" },
   { id: "marathon-de-la-biere", name: "Marathon de la Bière", category: "Événement", url: "https://lemarathondelabiere.com/", logo: "images/partenaires/marathon-de-la-biere.webp", shape: "square" },
   { id: "foulees-de-noel", name: "Les Foulées de Noël", category: "Événement", url: "https://lesfouleesdenoel.fr/", logo: "images/partenaires/foulees-de-noel.webp", shape: "square" },
@@ -34,7 +44,7 @@ export const partners: Partner[] = [
 ];
 
 // Chiffres du compte Instagram @grace_charpy (à mettre à jour régulièrement).
-export const audienceStats = [
-  { id: "followers", value: "14,5k", label: "Abonnés Instagram" },
-  { id: "views", value: "70k", label: "Vues en 1 mois" },
+export const audienceStats: Array<{ id: string; value: Localized; label: Localized }> = [
+  { id: "followers", value: { fr: "14,5k", en: "14.5k", de: "14,5k" }, label: { fr: "Abonnés Instagram", en: "Instagram followers", de: "Instagram-Follower" } },
+  { id: "views", value: { fr: "70k", en: "70k", de: "70k" }, label: { fr: "Vues en 1 mois", en: "Views in 1 month", de: "Aufrufe in 1 Monat" } },
 ];

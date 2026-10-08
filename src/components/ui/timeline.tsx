@@ -2,6 +2,7 @@ import { Fragment, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { JourneyItem } from "@/data/journey";
+import { ui, useLang } from "@/i18n";
 
 type TimelineProps = {
   id?: string;
@@ -15,10 +16,6 @@ type TimelineProps = {
 const DESKTOP_QUERY = "(min-width: 768px)";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
-const DISCIPLINE_LABEL: Record<JourneyItem["discipline"], string> = {
-  gym: "Gymnastique",
-  athle: "Athlétisme",
-};
 
 const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
@@ -30,6 +27,8 @@ export default function Timeline({
   imageUrl,
   imageAlt = "",
 }: TimelineProps) {
+  const { lang, t } = useLang();
+  const DISCIPLINE_LABEL: Record<JourneyItem["discipline"], string> = { gym: t(ui.gym), athle: t(ui.athle) };
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
@@ -128,19 +127,19 @@ export default function Timeline({
       context.revert();
       media.revert();
     };
-  }, [items]);
+  }, [items, lang]);
 
   return (
     <section ref={sectionRef} id={id} className="timeline" aria-labelledby={`${id}-title`}>
       <div className="timeline__track" ref={trackRef}>
         <header className="timeline__intro">
           <div className="timeline__intro-copy">
-            <p className="eyebrow">Parcours sportif</p>
+            <p className="eyebrow">{t(ui.timelineEyebrow)}</p>
             <h2 id={`${id}-title`}>{title}</h2>
             <p className="timeline__period">{periodLabel}</p>
-            <ul className="timeline__legend" aria-label="Disciplines">
-              <li data-discipline="gym">Gymnastique</li>
-              <li data-discipline="athle">Athlétisme</li>
+            <ul className="timeline__legend" aria-label={t(ui.disciplines)}>
+              <li data-discipline="gym">{t(ui.gym)}</li>
+              <li data-discipline="athle">{t(ui.athle)}</li>
             </ul>
           </div>
           {imageUrl ? (
@@ -189,7 +188,7 @@ export default function Timeline({
                       >
                         <img
                           src={asset(photo.src)}
-                          alt={photo.alt}
+                          alt={t(photo.alt)}
                           loading="lazy"
                           decoding="async"
                           style={photo.position ? { objectPosition: photo.position } : undefined}
@@ -209,8 +208,8 @@ export default function Timeline({
                       <span>{item.label}</span>
                       <span className="milestone__discipline">{DISCIPLINE_LABEL[item.discipline]}</span>
                     </p>
-                    <h3>{item.title}</h3>
-                    <p className="milestone__copy">{item.description}</p>
+                    <h3>{t(item.title)}</h3>
+                    <p className="milestone__copy">{t(item.description)}</p>
                   </article>
                 </li>
               </Fragment>
@@ -224,8 +223,8 @@ export default function Timeline({
             <path d="M2 12h19M14 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="1.6" />
           </svg>
           <div className="timeline__next">
-            <p>À suivre…</p>
-            <p className="timeline__next-goals">des 10 km, des semis, des marathons</p>
+            <p>{t(ui.next)}</p>
+            <p className="timeline__next-goals">{t(ui.nextGoals)}</p>
           </div>
         </div>
       </div>
