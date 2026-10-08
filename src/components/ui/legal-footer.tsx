@@ -4,8 +4,8 @@ import { useLang, type Localized } from "@/i18n";
 // Crédit du site : mettre ici les adresses des profils (laisser "" pour masquer un lien).
 const CREDIT = {
   name: "Ambroise Jessenne",
-  linkedin: "",
-  malt: "",
+  linkedin: "https://www.linkedin.com/in/ambroise-jessenne-649b36243",
+  malt: "https://www.malt.fr/profile/ambroisejessenne",
 };
 
 const EMAIL = "gracecharpypro@gmail.com";
