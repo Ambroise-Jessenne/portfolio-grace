@@ -35,7 +35,7 @@ export const journey: JourneyItem[] = [
     label: "2009",
     title: "Un premier titre national",
     description:
-      "Grâce remporte les Coupes nationales et devient championne de France Avenir.",
+      "Victoire aux Coupes nationales et titre de championne de France Avenir.",
     status: "user-provided",
     verificationNote:
       "Palmarès communiqué directement par l’utilisateur ; archive publique encore à identifier.",
@@ -49,7 +49,7 @@ export const journey: JourneyItem[] = [
     label: "2011",
     title: "Première sélection tricolore",
     description:
-      "Pour sa première sélection en équipe de France Espoir à Combs-la-Ville, elle termine deuxième en individuel et première par équipes.",
+      "Première sélection en équipe de France Espoir à Combs-la-Ville : deuxième place en individuel, victoire par équipes.",
     status: "user-provided",
     verificationNote:
       "Palmarès communiqué directement par l’utilisateur ; archive publique encore à identifier.",
@@ -63,7 +63,7 @@ export const journey: JourneyItem[] = [
     label: "2013",
     title: "Aux portes du podium mondial scolaire",
     description:
-      "Grâce se classe quatrième aux Gymnasiades au Brésil et troisième au sol aux Championnats de France.",
+      "Quatrième place aux Gymnasiades au Brésil, troisième place au sol aux Championnats de France.",
     status: "user-provided",
     verificationNote:
       "Palmarès communiqué directement par l’utilisateur ; résultats publics détaillés encore à rapprocher.",
@@ -77,7 +77,7 @@ export const journey: JourneyItem[] = [
     label: "2017",
     title: "Championne de France par équipes",
     description:
-      "Avec l’Indépendante Stéphanoise, elle remporte le Top 12 et prend la troisième place de la finale nationale au sol.",
+      "Victoire au Top 12 avec l’Indépendante Stéphanoise et troisième place en finale nationale au sol.",
     status: "verified",
     sourceUrl:
       "https://www.ffgym.fr/content/2017_-_mars_-_g_a_f__t_o_p_12_g_a_f_s_a_i_n_t-e_t_i_e_n_n_e_c_h_a_m_p_i_o_n_m_e_a_u_x_s_e_u_l_e_m_e_n_t_4em_e",
@@ -95,7 +95,7 @@ export const journey: JourneyItem[] = [
     label: "2018",
     title: "L’argent avec les Bleues",
     description:
-      "L’équipe de France féminine décroche la médaille d’argent aux Jeux méditerranéens de Tarragone.",
+      "Médaille d’argent avec l’équipe de France féminine aux Jeux méditerranéens de Tarragone.",
     status: "verified",
     sourceUrl:
       "https://auvergne-rhone-alpes.ffgym.fr/Actualites/Jeux-Mediterraneens-2018-une-competition-pleine-de-reussite-pour-les-Bleus",
@@ -111,7 +111,7 @@ export const journey: JourneyItem[] = [
     label: "2019",
     title: "Un dernier chapitre national",
     description:
-      "Championne de France DN1 par équipes, Grâce participe également aux Championnats de France Élite.",
+      "Titre de championne de France DN1 par équipes et participation aux Championnats de France Élite.",
     status: "user-provided",
     verificationNote:
       "Formulation volontairement limitée à une participation à France Élite. Palmarès communiqué directement par l’utilisateur.",
@@ -125,7 +125,7 @@ export const journey: JourneyItem[] = [
     label: "2021",
     title: "Une nouvelle discipline",
     description:
-      "Grâce rejoint le Coquelicot 42 et engage sa reconversion vers le demi-fond et la course.",
+      "Arrivée au Coquelicot 42 et début de la reconversion vers le demi-fond et la course.",
     status: "verified",
     sourceUrl: officialProfiles.ffa,
   },
@@ -138,7 +138,7 @@ export const journey: JourneyItem[] = [
     ],
     label: "2023",
     title: "Victoire à Lyon",
-    description: "Elle remporte le 10 km du Run in Lyon en 35 min 49 s.",
+    description: "Victoire pour une première participation au Run in Lyon : 10 km bouclés en 35 min 49 s.",
     status: "verified",
     sourceUrl:
       "https://www.runinlyon.com/fr/actus/ambiance-sportive-et-festive-pour-la-13e-edition/20",
@@ -151,7 +151,7 @@ export const journey: JourneyItem[] = [
     ],
     label: "2025",
     title: "Premier Open de France",
-    description: "Elle court le 5 000 m à Thonon-les-Bains en 17 min 03 s 73.",
+    description: "Première participation à l’Open de France, sur 5 000 m à Thonon-les-Bains, en 17 min 03 s 73.",
     status: "verified",
     sourceUrl: officialProfiles.ffa,
     corroboratingSourceUrl:
@@ -168,7 +168,7 @@ export const journey: JourneyItem[] = [
     label: "2026",
     title: "Le cap N2",
     description:
-      "Neuvième du 5 000 m à l’Open de France de Blois en 16 min 51 s 82, une performance classée N2.",
+      "Neuvième place sur 5 000 m à l’Open de France de Blois en 16 min 51 s 82, une performance classée N2.",
     status: "verified",
     sourceUrl: officialProfiles.ffa,
   },

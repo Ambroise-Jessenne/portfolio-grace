@@ -86,8 +86,8 @@ export default function Timeline({
                   scrollTrigger: {
                     trigger: card,
                     containerAnimation: horizontalTween,
-                    start: "left 88%",
-                    end: "left 55%",
+                    start: "left 98%",
+                    end: "left 72%",
                     scrub: true,
                   },
                 },
@@ -214,9 +214,12 @@ export default function Timeline({
           })}
         </ol>
 
-        <div className="timeline__outro" aria-hidden="true">
-          <span>La suite</span>
-          <span className="timeline__arrow">→</span>
+        <div className="timeline__outro">
+          <span className="timeline__dash" aria-hidden="true" />
+          <svg className="timeline__arrow" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2 12h19M14 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="1.6" />
+          </svg>
+          <p className="timeline__next">À suivre…</p>
         </div>
       </div>
 

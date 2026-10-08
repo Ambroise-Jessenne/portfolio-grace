@@ -102,8 +102,6 @@ export default function App() {
         title="Du praticable à la ligne de départ."
         periodLabel="2009 — aujourd’hui"
         items={journey}
-        imageUrl={`${import.meta.env.BASE_URL}images/parcours/veste-charpy.jpg`}
-        imageAlt="Grâce Charpy de dos, veste blanche floquée CHARPY, avant le départ d’une course"
       />
 
       <section id="contact" className="contact" aria-labelledby="contact-title">
