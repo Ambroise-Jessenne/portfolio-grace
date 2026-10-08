@@ -5,6 +5,9 @@ import { journey } from "@/data/journey";
 import { heroProofs } from "@/data/sport-profile";
 import { audienceStats, partners } from "@/data/partners";
 
+// Rayons des couloirs de la piste dessinée en fond du haut de page.
+const TRACK_LANES = [330, 390, 450, 510, 570, 630, 690, 750];
+
 const gymImage = `${import.meta.env.BASE_URL}images/grace-gym.jpg`;
 
 export default function App() {
@@ -15,10 +18,26 @@ export default function App() {
   return (
     <main>
       <section className="hero" aria-labelledby="hero-title">
+        <svg
+          className="hero__track"
+          viewBox="-1200 -800 2400 1600"
+          preserveAspectRatio="xMidYMid slice"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <g transform="translate(140 60) rotate(-16)">
+            {TRACK_LANES.map((radius, index) => (
+              <path
+                key={radius}
+                d={`M -560 ${-radius} H 560 A ${radius} ${radius} 0 0 1 560 ${radius} H -560 A ${radius} ${radius} 0 0 1 -560 ${-radius} Z`}
+                pathLength={1}
+                style={{ animationDelay: `${index * 0.12}s` }}
+              />
+            ))}
+          </g>
+        </svg>
+
         <nav className="hero__nav" aria-label="Navigation principale">
-          <a className="wordmark" href="#accueil" aria-label="Grâce Charpy, accueil">
-            GC<span>.</span>
-          </a>
           <div className="hero__nav-links">
             <a href="#parcours">Parcours</a>
             <a href="#partenariats">Partenariats</a>
@@ -178,9 +197,13 @@ export default function App() {
 
       <section id="contact" className="contact" aria-labelledby="contact-title">
         <p className="eyebrow">Collaborations · Projets · Partenariats</p>
-        <h2 id="contact-title">Construisons la prochaine ligne de départ.</h2>
+        <h2 id="contact-title">Me contacter pour vos projets.</h2>
         <div className="contact__links" aria-label="Coordonnées de Grâce Charpy">
           <a href="mailto:gracecharpypro@gmail.com">
+            <svg className="contact__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="1.5" />
+              <path d="m3.5 6 8.5 7 8.5-7" />
+            </svg>
             <span>E-mail</span>
             <strong>gracecharpypro@gmail.com</strong>
             <span aria-hidden="true">↗</span>
@@ -190,6 +213,11 @@ export default function App() {
             target="_blank"
             rel="noopener noreferrer"
           >
+            <svg className="contact__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4.2" />
+              <circle cx="17.4" cy="6.6" r="0.6" fill="currentColor" />
+            </svg>
             <span>Instagram</span>
             <strong>@grace_charpy</strong>
             <span aria-hidden="true">↗</span>
