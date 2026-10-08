@@ -111,5 +111,5 @@ export const sportFacts: SportFact[] = [
 ];
 
 export const heroProofs = sportFacts.filter((fact) =>
-  ["mediterranean-games-2018", "run-in-lyon-2023", "ffa-5000-2026"].includes(fact.id),
+  ["mediterranean-games-2018", "ffa-5000-2026", "run-in-lyon-2023", "sainte-city-run"].includes(fact.id),
 );

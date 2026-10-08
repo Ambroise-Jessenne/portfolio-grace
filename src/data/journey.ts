@@ -1,8 +1,18 @@
 import type { EvidenceStatus } from "@/data/sport-profile";
 import { officialProfiles } from "@/data/sport-profile";
 
+export type JourneyPhoto = {
+  /** Chemin relatif au dossier public/ (ex. "images/parcours/xxx.jpg"). */
+  src: string;
+  alt: string;
+  /** Cadrage CSS object-position, ex. "50% 30%". */
+  position?: string;
+};
+
 export type JourneyItem = {
   id: string;
+  discipline: "gym" | "athle";
+  photos?: JourneyPhoto[];
   label: string;
   title: string;
   description: string;
@@ -12,12 +22,16 @@ export type JourneyItem = {
   verificationNote?: string;
 };
 
-// Sélection éditoriale destinée à la future frise. Le composant existe,
-// mais reste volontairement hors de la page tant que son intégration n’est pas demandée.
+// Sélection éditoriale affichée dans la frise « Parcours ».
+// Pour changer une photo : déposer le fichier dans public/images/parcours/ et modifier `photos`.
 // `user-provided` signifie que le jalon doit encore être rapproché d’une archive publique.
 export const journey: JourneyItem[] = [
   {
     id: "avenir-2009",
+    discipline: "gym",
+    photos: [
+      { src: "images/parcours/gym-justaucorps.jpg", alt: "Grâce Charpy en justaucorps noir, assise sur un praticable", position: "50% 35%" },
+    ],
     label: "2009",
     title: "Un premier titre national",
     description:
@@ -28,6 +42,10 @@ export const journey: JourneyItem[] = [
   },
   {
     id: "france-espoir-2011",
+    discipline: "gym",
+    photos: [
+      { src: "images/parcours/gym-rouge.jpg", alt: "Grâce Charpy en justaucorps rouge, bras levé, en compétition", position: "50% 40%" },
+    ],
     label: "2011",
     title: "Première sélection tricolore",
     description:
@@ -38,6 +56,10 @@ export const journey: JourneyItem[] = [
   },
   {
     id: "gymnasiades-2013",
+    discipline: "gym",
+    photos: [
+      { src: "images/parcours/gym-sol-nb.jpg", alt: "Grâce Charpy en mouvement au sol, photo en noir et blanc", position: "50% 40%" },
+    ],
     label: "2013",
     title: "Aux portes du podium mondial scolaire",
     description:
@@ -48,6 +70,10 @@ export const journey: JourneyItem[] = [
   },
   {
     id: "top-12-2017",
+    discipline: "gym",
+    photos: [
+      { src: "images/parcours/gym-sol-scene.jpg", alt: "Grâce Charpy en position au sol, sous les projecteurs", position: "50% 40%" },
+    ],
     label: "2017",
     title: "Championne de France par équipes",
     description:
@@ -62,6 +88,10 @@ export const journey: JourneyItem[] = [
   },
   {
     id: "mediterranean-2018",
+    discipline: "gym",
+    photos: [
+      { src: "images/parcours/gym-barres.jpg", alt: "Grâce Charpy en lâcher aux barres asymétriques", position: "55% 40%" },
+    ],
     label: "2018",
     title: "L’argent avec les Bleues",
     description:
@@ -74,6 +104,10 @@ export const journey: JourneyItem[] = [
   },
   {
     id: "dn1-elite-2019",
+    discipline: "gym",
+    photos: [
+      { src: "images/parcours/gym-blanc-nb.jpg", alt: "Grâce Charpy de dos en justaucorps blanc, bras tendu, en noir et blanc", position: "50% 35%" },
+    ],
     label: "2019",
     title: "Un dernier chapitre national",
     description:
@@ -84,6 +118,10 @@ export const journey: JourneyItem[] = [
   },
   {
     id: "athletics-2021",
+    discipline: "athle",
+    photos: [
+      { src: "images/parcours/trail-lumiere.jpg", alt: "Grâce Charpy en course sur un sentier, à contre-jour", position: "50% 45%" },
+    ],
     label: "2021",
     title: "Une nouvelle discipline",
     description:
@@ -93,6 +131,11 @@ export const journey: JourneyItem[] = [
   },
   {
     id: "run-in-lyon-2023",
+    discipline: "athle",
+    photos: [
+      { src: "images/parcours/run-in-lyon-arrivee.jpg", alt: "Grâce Charpy franchit la ligne d’arrivée du Run in Lyon, bras levés", position: "50% 30%" },
+      { src: "images/parcours/run-in-lyon-course.jpg", alt: "Grâce Charpy en pleine course dans les rues de Lyon", position: "50% 30%" },
+    ],
     label: "2023",
     title: "Victoire à Lyon",
     description: "Elle remporte le 10 km du Run in Lyon en 35 min 49 s.",
@@ -102,6 +145,10 @@ export const journey: JourneyItem[] = [
   },
   {
     id: "open-france-2025",
+    discipline: "athle",
+    photos: [
+      { src: "images/parcours/piste-dossard-10.jpg", alt: "Grâce Charpy en course sur piste, dossard 10", position: "50% 30%" },
+    ],
     label: "2025",
     title: "Premier Open de France",
     description: "Elle court le 5 000 m à Thonon-les-Bains en 17 min 03 s 73.",
@@ -114,6 +161,10 @@ export const journey: JourneyItem[] = [
   },
   {
     id: "open-france-2026",
+    discipline: "athle",
+    photos: [
+      { src: "images/parcours/piste-foulee.jpg", alt: "Grâce Charpy en pleine foulée sur la piste", position: "50% 45%" },
+    ],
     label: "2026",
     title: "Le cap N2",
     description:

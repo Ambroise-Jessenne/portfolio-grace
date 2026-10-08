@@ -1,35 +1,15 @@
-import { useRef, type PointerEvent } from "react";
+import { useRef } from "react";
 import Timeline from "@/components/ui/timeline";
+import { useMistReveal } from "@/components/ui/use-mist-reveal";
 import { journey } from "@/data/journey";
 import { heroProofs } from "@/data/sport-profile";
 
+const gymImage = `${import.meta.env.BASE_URL}images/grace-gym.jpg`;
+
 export default function App() {
   const portraitRef = useRef<HTMLElement>(null);
-
-  const positionReveal = (event: PointerEvent<HTMLElement>) => {
-    if (event.pointerType === "touch") return;
-
-    const portrait = portraitRef.current;
-    if (!portrait) return;
-
-    const bounds = portrait.getBoundingClientRect();
-    portrait.style.setProperty("--reveal-x", `${event.clientX - bounds.left}px`);
-    portrait.style.setProperty("--reveal-y", `${event.clientY - bounds.top}px`);
-    portrait.dataset.reveal = "open";
-  };
-
-  const closeReveal = () => {
-    portraitRef.current?.removeAttribute("data-reveal");
-  };
-
-  const openCenteredReveal = () => {
-    const portrait = portraitRef.current;
-    if (!portrait) return;
-
-    portrait.style.setProperty("--reveal-x", "50%");
-    portrait.style.setProperty("--reveal-y", "50%");
-    portrait.dataset.reveal = "open";
-  };
+  const mistRef = useRef<HTMLCanvasElement>(null);
+  const mistHandlers = useMistReveal(portraitRef, mistRef, { imageSrc: gymImage });
 
   return (
     <main>
@@ -55,17 +35,6 @@ export default function App() {
               De l’équipe de France de gymnastique aux pistes d’athlétisme. Une trajectoire
               construite avec la même précision, le même engagement et un nouvel élan.
             </p>
-            <ul className="hero__proofs" aria-label="Repères sportifs vérifiés">
-              {heroProofs.map((proof) => (
-                <li key={proof.id}>
-                  <a href={proof.sourceUrl} target="_blank" rel="noreferrer">
-                    <span>{proof.label}</span>
-                    <strong>{proof.value}</strong>
-                    <small>{proof.detail}</small>
-                  </a>
-                </li>
-              ))}
-            </ul>
             <a
               className="contact-cta"
               href="mailto:gracecharpypro@gmail.com"
@@ -82,11 +51,7 @@ export default function App() {
             tabIndex={0}
             aria-label="Portrait interactif de Grâce Charpy, entre course et gymnastique"
             aria-describedby="portrait-instruction"
-            onPointerEnter={positionReveal}
-            onPointerMove={positionReveal}
-            onPointerLeave={closeReveal}
-            onFocus={openCenteredReveal}
-            onBlur={closeReveal}
+            {...mistHandlers}
           >
             <div className="portrait-pair__runner">
               <img
@@ -95,8 +60,9 @@ export default function App() {
               />
             </div>
             <div className="portrait-pair__gym" aria-hidden="true">
-              <img src={`${import.meta.env.BASE_URL}images/grace-gym.jpg`} alt="" />
+              <img src={gymImage} alt="" />
             </div>
+            <canvas ref={mistRef} className="portrait-pair__mist" aria-hidden="true" />
             <figcaption className="portrait-pair__caption">
               <span id="portrait-instruction" className="portrait-pair__desktop-note">
                 Déplacez le pointeur pour révéler
@@ -104,9 +70,31 @@ export default function App() {
               <span>Course / Gymnastique</span>
             </figcaption>
           </figure>
+
+          <aside className="hero__performances" aria-labelledby="performances-title">
+            <p id="performances-title" className="eyebrow">Performances</p>
+            <ul className="hero__proofs" aria-label="Repères sportifs vérifiés">
+              {heroProofs.map((proof) => (
+                <li key={proof.id}>
+                  <a href={proof.sourceUrl} target="_blank" rel="noreferrer">
+                    <span>{proof.label}</span>
+                    <strong>{proof.value}</strong>
+                    <small>{proof.detail}</small>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </aside>
         </div>
 
         <p className="hero__index" aria-hidden="true">01 — Mouvement</p>
+
+        <a className="scroll-cue" href="#parcours" aria-label="Descendre vers le parcours">
+          <span className="scroll-cue__label">Défiler</span>
+          <svg className="scroll-cue__arrow" viewBox="0 0 16 32" aria-hidden="true">
+            <path d="M8 1v29M2 24l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="1.2" />
+          </svg>
+        </a>
       </section>
 
       <Timeline
@@ -114,8 +102,8 @@ export default function App() {
         title="Du praticable à la ligne de départ."
         periodLabel="2009 — aujourd’hui"
         items={journey}
-        imageUrl={`${import.meta.env.BASE_URL}images/grace-piste.jpg`}
-        imageAlt="Grâce Charpy en course sur une piste d’athlétisme"
+        imageUrl={`${import.meta.env.BASE_URL}images/parcours/veste-charpy.jpg`}
+        imageAlt="Grâce Charpy de dos, veste blanche floquée CHARPY, avant le départ d’une course"
       />
 
       <section id="contact" className="contact" aria-labelledby="contact-title">

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from "react";
+import { Fragment, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { JourneyItem } from "@/data/journey";
@@ -15,6 +15,13 @@ type TimelineProps = {
 const DESKTOP_QUERY = "(min-width: 768px)";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
+const DISCIPLINE_LABEL: Record<JourneyItem["discipline"], string> = {
+  gym: "Gymnastique",
+  athle: "Athlétisme",
+};
+
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
 export default function Timeline({
   id = "parcours",
   title,
@@ -25,6 +32,7 @@ export default function Timeline({
 }: TimelineProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLSpanElement>(null);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -57,30 +65,55 @@ export default function Timeline({
               scrub: 0.6,
               anticipatePin: 1,
               invalidateOnRefresh: true,
+              onUpdate: (self) => {
+                progressRef.current?.style.setProperty("--progress", self.progress.toFixed(4));
+              },
             },
           });
 
           gsap.utils.toArray<HTMLElement>("[data-milestone]", section).forEach((card) => {
-            gsap.fromTo(
-              card,
-              { autoAlpha: 0.35, y: 20 },
-              {
-                autoAlpha: 1,
-                y: 0,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: card,
-                  containerAnimation: horizontalTween,
-                  start: "left 82%",
-                  end: "left 58%",
-                  scrub: true,
+            const text = card.querySelector("article");
+            const photos = card.querySelectorAll(".milestone__photo img");
+
+            if (text) {
+              gsap.fromTo(
+                text,
+                { autoAlpha: 0.25, y: 24 },
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    containerAnimation: horizontalTween,
+                    start: "left 88%",
+                    end: "left 55%",
+                    scrub: true,
+                  },
                 },
-              },
-            );
+              );
+            }
+
+            if (photos.length) {
+              gsap.fromTo(
+                photos,
+                { scale: 1.14 },
+                {
+                  scale: 1,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    containerAnimation: horizontalTween,
+                    start: "left right",
+                    end: "right 40%",
+                    scrub: true,
+                  },
+                },
+              );
+            }
           });
         },
       );
-
     }, section);
 
     const refresh = () => ScrollTrigger.refresh();
@@ -101,33 +134,84 @@ export default function Timeline({
     <section ref={sectionRef} id={id} className="timeline" aria-labelledby={`${id}-title`}>
       <div className="timeline__track" ref={trackRef}>
         <header className="timeline__intro">
-          <p className="eyebrow">Parcours sportif</p>
-          <h2 id={`${id}-title`}>{title}</h2>
-          <p>{periodLabel}</p>
+          <div className="timeline__intro-copy">
+            <p className="eyebrow">Parcours sportif</p>
+            <h2 id={`${id}-title`}>{title}</h2>
+            <p className="timeline__period">{periodLabel}</p>
+            <ul className="timeline__legend" aria-label="Disciplines">
+              <li data-discipline="gym">Gymnastique</li>
+              <li data-discipline="athle">Athlétisme</li>
+            </ul>
+          </div>
           {imageUrl ? (
-            <img className="timeline__image" src={imageUrl} alt={imageAlt} loading="lazy" />
+            <figure className="timeline__intro-photo">
+              <img src={imageUrl} alt={imageAlt} loading="lazy" decoding="async" />
+            </figure>
           ) : null}
         </header>
 
         <div className="timeline__line" aria-hidden="true" />
 
         <ol className="timeline__list">
-          {items.map((item, index) => (
-            <li
-              key={item.id}
-              className={index % 2 === 0 ? "milestone milestone--top" : "milestone milestone--bottom"}
-              data-milestone
-            >
-              <span className="milestone__dot" aria-hidden="true" />
-              <article>
-                <p className="milestone__label">
-                  {item.label}
-                </p>
-                <h3>{item.title}</h3>
-                <p className="milestone__copy">{item.description}</p>
-              </article>
-            </li>
-          ))}
+          {items.map((item, index) => {
+            const previous = items[index - 1];
+            const switchesDiscipline = previous && previous.discipline !== item.discipline;
+            const photos = item.photos ?? [];
+
+            return (
+              <Fragment key={item.id}>
+                {switchesDiscipline ? (
+                  <li className="timeline__switch" aria-hidden="true">
+                    <span>{DISCIPLINE_LABEL[previous.discipline]}</span>
+                    <span className="timeline__switch-arrow">↓</span>
+                    <strong>{DISCIPLINE_LABEL[item.discipline]}</strong>
+                  </li>
+                ) : null}
+
+                <li
+                  className={[
+                    "milestone",
+                    `milestone--${item.discipline}`,
+                    index % 2 === 0 ? "milestone--tall" : "milestone--short",
+                    photos.length > 1 ? "milestone--duo" : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  data-milestone
+                >
+                  <div className="milestone__media">
+                    {photos.map((photo, photoIndex) => (
+                      <figure
+                        key={photo.src}
+                        className={
+                          photoIndex === 0 ? "milestone__photo" : "milestone__photo milestone__photo--inset"
+                        }
+                      >
+                        <img
+                          src={asset(photo.src)}
+                          alt={photo.alt}
+                          loading="lazy"
+                          decoding="async"
+                          style={photo.position ? { objectPosition: photo.position } : undefined}
+                        />
+                      </figure>
+                    ))}
+                  </div>
+
+                  <span className="milestone__dot" aria-hidden="true" />
+
+                  <article>
+                    <p className="milestone__label">
+                      <span>{item.label}</span>
+                      <span className="milestone__discipline">{DISCIPLINE_LABEL[item.discipline]}</span>
+                    </p>
+                    <h3>{item.title}</h3>
+                    <p className="milestone__copy">{item.description}</p>
+                  </article>
+                </li>
+              </Fragment>
+            );
+          })}
         </ol>
 
         <div className="timeline__outro" aria-hidden="true">
@@ -135,6 +219,8 @@ export default function Timeline({
           <span className="timeline__arrow">→</span>
         </div>
       </div>
+
+      <span ref={progressRef} className="timeline__progress" aria-hidden="true" />
     </section>
   );
 }
