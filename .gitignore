@@ -1,0 +1,16 @@
+node_modules
+dist
+.vite
+*.local
+
+# Configuration et secrets locaux
+.env
+.env.*
+!.env.example
+
+# Sorties de tests et journaux
+coverage
+*.log
+
+# Photothèque source locale ; seules les images sélectionnées de public/ sont publiées
+/visuels/
