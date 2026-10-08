@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Timeline from "@/components/ui/timeline";
-import { useMistReveal } from "@/components/ui/use-mist-reveal";
+import { REVEAL_MODES, useMistReveal, type RevealMode } from "@/components/ui/use-mist-reveal";
 import { journey } from "@/data/journey";
 import { heroProofs } from "@/data/sport-profile";
 import { audienceStats, partners } from "@/data/partners";
@@ -8,12 +8,26 @@ import { audienceStats, partners } from "@/data/partners";
 // Rayons des couloirs de la piste dessinée en fond du haut de page.
 const TRACK_LANES = [330, 390, 450, 510, 570, 630, 690, 750];
 
+// Effet de dévoilement de la photo : choisi via l'adresse (?effet=cercle) pendant la phase de test.
+const initialRevealMode = (): RevealMode => {
+  const wanted = new URLSearchParams(window.location.search).get("effet");
+  return REVEAL_MODES.some((m) => m.id === wanted) ? (wanted as RevealMode) : "brume";
+};
+
 const gymImage = `${import.meta.env.BASE_URL}images/grace-gym.jpg`;
 
 export default function App() {
   const portraitRef = useRef<HTMLElement>(null);
   const mistRef = useRef<HTMLCanvasElement>(null);
-  const mistHandlers = useMistReveal(portraitRef, mistRef, { imageSrc: gymImage });
+  const [revealMode, setRevealMode] = useState<RevealMode>(initialRevealMode);
+  const mistHandlers = useMistReveal(portraitRef, mistRef, { imageSrc: gymImage, mode: revealMode });
+
+  const chooseRevealMode = (mode: RevealMode) => {
+    setRevealMode(mode);
+    const url = new URL(window.location.href);
+    url.searchParams.set("effet", mode);
+    window.history.replaceState(null, "", url);
+  };
 
   return (
     <main>
@@ -109,6 +123,21 @@ export default function App() {
         </div>
 
         <p className="hero__index" aria-hidden="true">01 — Mouvement</p>
+
+        {/* Sélecteur temporaire pour comparer les effets de dévoilement (à retirer après le choix). */}
+        <div className="reveal-switch" role="group" aria-label="Tester l’effet de la photo">
+          <span>Effet photo</span>
+          {REVEAL_MODES.map((m, index) => (
+            <button
+              key={m.id}
+              type="button"
+              aria-pressed={revealMode === m.id}
+              onClick={() => chooseRevealMode(m.id)}
+            >
+              {index + 1}. {m.label}
+            </button>
+          ))}
+        </div>
 
         <a className="scroll-cue" href="#parcours" aria-label="Descendre vers le parcours">
           <span className="scroll-cue__label">Défiler</span>
