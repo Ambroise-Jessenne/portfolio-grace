@@ -3,6 +3,7 @@ import Timeline from "@/components/ui/timeline";
 import { useMistReveal } from "@/components/ui/use-mist-reveal";
 import { journey } from "@/data/journey";
 import { heroProofs } from "@/data/sport-profile";
+import { audienceStats, partners } from "@/data/partners";
 
 const gymImage = `${import.meta.env.BASE_URL}images/grace-gym.jpg`;
 
@@ -20,6 +21,7 @@ export default function App() {
           </a>
           <div className="hero__nav-links">
             <a href="#parcours">Parcours</a>
+            <a href="#partenariats">Partenariats</a>
             <a href="#contact">Contact</a>
           </div>
         </nav>
@@ -103,6 +105,76 @@ export default function App() {
         periodLabel="2009 — aujourd’hui"
         items={journey}
       />
+
+      <section id="partenariats" className="partners" aria-labelledby="partners-title">
+        <div className="partners__head">
+          <div>
+            <p className="eyebrow">Partenariats · Visibilité</p>
+            <h2 id="partners-title">Ils ont couru avec Grâce.</h2>
+          </div>
+          <p className="partners__intro">
+            Des marques de sport, de nutrition et des courses de la Loire lui ont déjà confié
+            leur image, sur la piste comme sur Instagram.
+          </p>
+        </div>
+
+        <a
+          className="partners__stats"
+          href="https://www.instagram.com/grace_charpy/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Audience Instagram de Grâce Charpy (ouvre Instagram dans un nouvel onglet)"
+        >
+          {audienceStats.map((stat) => (
+            <span key={stat.id} className="partners__stat">
+              <strong>{stat.value}</strong>
+              <span>{stat.label}</span>
+            </span>
+          ))}
+          <span className="partners__stat-source">@grace_charpy <span aria-hidden="true">↗</span></span>
+        </a>
+
+        <ul className="partners__grid" aria-label="Marques et événements partenaires">
+          {partners.map((partner) => {
+            const content = (
+              <>
+                <span className="partners__logo" data-shape={partner.shape ?? "medium"}>
+                  {partner.logo ? (
+                    <img
+                      src={`${import.meta.env.BASE_URL}${partner.logo}`}
+                      alt={partner.name}
+                      loading="lazy"
+                      data-colored={partner.colored ? "true" : undefined}
+                    />
+                  ) : (
+                    <span className="partners__wordmark">{partner.name}</span>
+                  )}
+                </span>
+                <span className="partners__meta">
+                  <span>{partner.category}</span>
+                  {partner.url && <span aria-hidden="true">↗</span>}
+                </span>
+              </>
+            );
+            return (
+              <li key={partner.id}>
+                {partner.url ? (
+                  <a
+                    href={partner.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${partner.name} — ouvrir le site (nouvel onglet)`}
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <div className="partners__card">{content}</div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
       <section id="contact" className="contact" aria-labelledby="contact-title">
         <p className="eyebrow">Collaborations · Projets · Partenariats</p>
