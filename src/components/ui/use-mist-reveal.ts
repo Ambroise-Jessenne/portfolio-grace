@@ -88,7 +88,7 @@ export function useMistReveal(
   const puff = (ctx: CanvasRenderingContext2D, x: number, y: number, radius: number, alpha: number) => {
     const g = ctx.createRadialGradient(x, y, 0, x, y, radius);
     g.addColorStop(0, `rgba(0,0,0,${alpha})`);
-    g.addColorStop(0.45, `rgba(0,0,0,${alpha * 0.65})`);
+    g.addColorStop(0.45, `rgba(0,0,0,${alpha * 0.55})`);
     g.addColorStop(1, "rgba(0,0,0,0)");
     ctx.fillStyle = g;
     ctx.beginPath();
@@ -111,7 +111,7 @@ export function useMistReveal(
 
     // 1. La brume existante se dissipe un peu.
     mctx.globalCompositeOperation = "destination-out";
-    mctx.fillStyle = "rgba(0,0,0,0.04)";
+    mctx.fillStyle = "rgba(0,0,0,0.045)";
     mctx.fillRect(0, 0, w, h);
     mctx.globalCompositeOperation = "source-over";
 
@@ -133,12 +133,12 @@ export function useMistReveal(
             px + Math.cos(angle) * spread,
             py + Math.sin(angle) * spread,
             base * (0.55 + Math.random() * 0.8),
-            0.38 + Math.random() * 0.25,
+            0.3 + Math.random() * 0.25,
           );
         }
       }
       // Cœur du nuage, plus dense, sous le pointeur.
-      puff(mctx, s.x, s.y, base * 1.05, 0.7);
+      puff(mctx, s.x, s.y, base * 1.05, 0.55);
       s.lastX = s.x;
       s.lastY = s.y;
     } else {
