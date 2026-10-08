@@ -66,8 +66,12 @@ export default function App() {
                 </li>
               ))}
             </ul>
-            <a className="contact-cta" href="#contact">
-              <span>Me contacter</span>
+            <a
+              className="contact-cta"
+              href="mailto:gracecharpypro@gmail.com"
+              aria-label="Envoyer un e-mail à Grâce Charpy"
+            >
+              <span>Écrire à Grâce</span>
               <span aria-hidden="true">↗</span>
             </a>
           </div>
@@ -86,12 +90,12 @@ export default function App() {
           >
             <div className="portrait-pair__runner">
               <img
-                src="/images/grace-blocks-league.jpg"
+                src={`${import.meta.env.BASE_URL}images/grace-blocks-league.jpg`}
                 alt="Grâce Charpy en tenue de course noire lors d’un événement Blocks League"
               />
             </div>
             <div className="portrait-pair__gym" aria-hidden="true">
-              <img src="/images/grace-gym.jpg" alt="" />
+              <img src={`${import.meta.env.BASE_URL}images/grace-gym.jpg`} alt="" />
             </div>
             <figcaption className="portrait-pair__caption">
               <span id="portrait-instruction" className="portrait-pair__desktop-note">
@@ -110,17 +114,32 @@ export default function App() {
         title="Du praticable à la ligne de départ."
         periodLabel="2009 — aujourd’hui"
         items={journey}
-        imageUrl="/images/grace-piste.jpg"
+        imageUrl={`${import.meta.env.BASE_URL}images/grace-piste.jpg`}
         imageAlt="Grâce Charpy en course sur une piste d’athlétisme"
       />
 
       <section id="contact" className="contact" aria-labelledby="contact-title">
         <p className="eyebrow">Collaborations · Projets · Partenariats</p>
         <h2 id="contact-title">Construisons la prochaine ligne de départ.</h2>
-        <p className="contact__placeholder">
-          Les coordonnées de Grâce seront ajoutées ici dès qu’elles auront été confirmées.
-        </p>
-        <a href="#accueil">Retour en haut <span aria-hidden="true">↑</span></a>
+        <div className="contact__links" aria-label="Coordonnées de Grâce Charpy">
+          <a href="mailto:gracecharpypro@gmail.com">
+            <span>E-mail</span>
+            <strong>gracecharpypro@gmail.com</strong>
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a
+            href="https://www.instagram.com/grace_charpy/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Instagram</span>
+            <strong>@grace_charpy</strong>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <a className="contact__back" href="#accueil">
+          Retour en haut <span aria-hidden="true">↑</span>
+        </a>
       </section>
     </main>
   );

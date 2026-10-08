@@ -161,8 +161,15 @@ img { display: block; max-width: 100%; }
 .contact { min-height: 76svh; display: flex; flex-direction: column; justify-content: center; padding: 6rem clamp(1.25rem, 9vw, 9rem); color: var(--ink); background: var(--paper); }
 .contact .eyebrow { color: #756f66; }
 .contact h2 { max-width: 12ch; margin: 0; font: 400 clamp(3.2rem, 8vw, 8rem)/0.9 Georgia, serif; letter-spacing: -0.065em; }
-.contact__placeholder { max-width: 38rem; margin: 3rem 0 2rem; color: #625d55; line-height: 1.6; }
-.contact > a { width: fit-content; border-bottom: 1px solid currentColor; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.contact__links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 58rem); margin: 3rem 0 2.5rem; border-top: 1px solid #a49e94; border-bottom: 1px solid #a49e94; }
+.contact__links > a { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.45rem 1.5rem; min-height: 6.2rem; padding: 1rem 1.25rem; transition: color 180ms ease, background-color 180ms ease; }
+.contact__links > a + a { border-left: 1px solid #a49e94; }
+.contact__links > a:hover, .contact__links > a:focus-visible { color: var(--paper); background: var(--ink); }
+.contact__links span:first-child { color: #756f66; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; }
+.contact__links > a:hover span:first-child, .contact__links > a:focus-visible span:first-child { color: #bdb6ab; }
+.contact__links strong { min-width: 0; overflow-wrap: anywhere; font: 400 clamp(1rem, 1.7vw, 1.35rem)/1.2 Georgia, serif; }
+.contact__links strong + span { grid-column: 2; grid-row: 1 / span 2; font-size: 1.2rem; }
+.contact__back { width: fit-content; border-bottom: 1px solid currentColor; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; }
 
 @media (max-width: 767px) {
   html { scroll-behavior: auto; }
@@ -182,7 +189,7 @@ img { display: block; max-width: 100%; }
   .portrait-pair__desktop-note { display: none; }
   .hero__index { display: none; }
   .timeline { min-height: auto; overflow: visible; }
-  .timeline__track { display: block; width: 100%; height: auto; min-height: 0; padding: 0 1.25rem 5rem; transform: none !important; }
+  .timeline__track { display: block; width: 100%; min-width: 0; height: auto; min-height: 0; padding: 0 1.25rem 5rem; transform: none !important; }
   .timeline__intro { width: 100%; padding: 5rem 0 3rem; }
   .timeline__intro h2 { font-size: clamp(3.2rem, 15vw, 5rem); }
   .timeline__image { width: 100%; height: 55vh; }
@@ -193,6 +200,9 @@ img { display: block; max-width: 100%; }
   .milestone h3 { font-size: 2.3rem; }
   .milestone__copy { max-width: 34ch; font-size: 0.94rem; }
   .contact { min-height: 70svh; }
+  .contact__links { grid-template-columns: 1fr; }
+  .contact__links > a + a { border-top: 1px solid #a49e94; border-left: 0; }
+  .contact__links > a { min-height: 5.5rem; padding-inline: 0.8rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -200,7 +210,7 @@ img { display: block; max-width: 100%; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .portrait-pair__gym { inset: 18% 0 8% 58%; z-index: 2; border: 0.4rem solid var(--ink); clip-path: none; }
   .timeline { min-height: auto; overflow: visible; }
-  .timeline__track { display: block; width: 100%; height: auto; min-height: 0; padding: 0 clamp(1.25rem, 5vw, 5rem) 5rem; transform: none !important; }
+  .timeline__track { display: block; width: 100%; min-width: 0; height: auto; min-height: 0; padding: 0 clamp(1.25rem, 5vw, 5rem) 5rem; transform: none !important; }
   .timeline__intro { width: 100%; }
   .timeline__line, .timeline__outro { display: none; }
   .timeline__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; height: auto; padding: 0; }
